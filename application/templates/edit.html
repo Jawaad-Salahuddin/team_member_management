@@ -1,0 +1,56 @@
+{% load bootstrap5 %}
+{% bootstrap_css %}
+
+{% block bootstrap5_content %}
+    <div class="container">
+        <div class="card">
+            <div class="card-header text-center pb-3">
+                <p class="fs-1 mb-1">Edit page</p>
+            </div>
+            <div class="card-body pb-4">
+                <p class="fs-3 fw-bold mb-1">Edit team member</p>
+                <p class="fs-6 mb-4">Edit contact info, location and role.</p>
+                <hr>
+                <form action="save/{{ team_member.id }}" method="post">
+                    {% csrf_token %}
+                    <p class="fs-6 fw-bold mb-3">Info</p>
+                    <div class="input-group mb-2">
+                        <input name="first_name" value="{{ team_member.first_name }}" class="form-control">
+                    </div>
+                    <div class="input-group mb-2">
+                        <input name="last_name" value="{{ team_member.last_name }}" class="form-control">
+                    </div>
+                    <div class="input-group mb-2">
+                        <input name="email" value="{{ team_member.email }}" class="form-control">
+                    </div>
+                    <div class="input-group mb-4">
+                        <input name="phone_number" value="{{ team_member.phone_number }}" class="form-control">
+                    </div>
+                    <p class="fs-6 fw-bold mb-3">Role</p>
+                    <div class="mb-4">
+                        {% for role in roles %}
+                            <div class="row">
+                                <div class="col">
+                                    <label for="{{ role.0 }}" class="form-check-label">{{ role.1 }}</label>
+                                </div>
+                                <div class="col-1">
+                                    <input type="radio" id="{{ role.0 }}" name="role" value="{{ role.0 }}" {% if role.0 == team_member.role %}checked{% endif %} class="form-check-input">
+                                </div>
+                            </div>
+                            <hr>
+                        {% endfor %}
+                    </div>
+                    {% buttons %}
+                        <button type="submit" class="btn btn-primary float-end">Save</button>
+                    {% endbuttons %}
+                </form>
+                <form action="delete/{{ team_member.id }}" method="post">
+                    {% csrf_token %}
+                    {% buttons %}
+                        <button type="submit" class="btn btn-outline-danger">Delete</button>
+                    {% endbuttons %}
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,35 @@
+{% load bootstrap5 %}
+{% bootstrap_css %}
+{% load bootstrap_icons %}
+
+{% block bootstrap5_content %}
+    <div class="container">
+        <div class="card">
+            <div class="card-header text-center pb-3">
+                <p class="fs-1 mb-1">List page</p>
+            </div>
+            <div class="card-body pb-4">
+                <div class="d-flex justify-content-end">
+                    <a href="add/">{% bs_icon 'plus' size='2em' color='#0d6efd' %}</a>
+                </div>
+                <p class="fs-3 fw-bold mb-1">Team members</p>
+                <p class="fs-6 mb-4">You have {{ team_members.count }} team members.</p>
+                <hr>
+                {% for team_member in team_members %}
+                    <div class="row pb-2" style="transform:rotate(0)">
+                        <div class="col-2">
+                            {% bs_icon 'person-circle' size='4em' %}
+                        </div>
+                        <div class="col">
+                            <p class="fs-6 fw-bold mb-1">{{ team_member.first_name }} {{ team_member.last_name }} {% if team_member.role == 'admin' %}(admin){% endif %}</p>
+                            <p class="fs-6 mb-1">{{ team_member.phone_number }}</p>
+                            <p class="fs-6 mb-1">{{ team_member.email }}</p>
+                        </div>
+                        <a href="edit/{{ team_member.id }}" class="stretched-link"></a>
+                    </div>
+                        <hr>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+{% endblock %}
