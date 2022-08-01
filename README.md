@@ -1,5 +1,5 @@
 # Team Member Management
-A simple team-member management application implemented using Django
+A simple team-member management application implemented using Django (Estimate of how much time I spent: 8 hours)
 
 ## Building the project
 - Clone this repo
